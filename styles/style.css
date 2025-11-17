@@ -1,0 +1,334 @@
+/* ===== GLOBAL FONTS & BASE ===== */
+body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+}
+
+h1, h2, h3, .header__item a, .nav__logo {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ===== RESET & GLOBAL ===== */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ===== NAVIGATION BAR ===== */
+.nav {
+  background-color: #272827;
+  padding: 25px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav__logo {
+  height: 50px;
+  width: 100px;
+}
+
+.nav__search {
+  width: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.nav__search input {
+  width: 100%;
+  padding: 10px 20px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+
+.nav__search button {
+  height: 40px;
+  background-color: #b0aaaa;
+  padding: 10px 20px;
+  border: none;
+  margin-left: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ===== HEADER MENU ===== */
+.header {
+  background-color: #f5f5f5;
+  padding: 15px 30px;
+}
+
+.header__list {
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+}
+
+.header__item a {
+  color: #e85450;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.header__item:hover a {
+  color: #f6827a;
+  transition: all 0.3s ease-in;
+}
+
+/* ===== BANNER ===== */
+.banner img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* ===== SECTION CONTENT ===== */
+.container {
+  padding: 20px 30px;
+}
+
+.section__title h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #e85450;
+}
+
+.section__content p {
+  font-size: 16px;
+  line-height: 28px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* ===== BUTTON ===== */
+.btn {
+  background-color: #f0aaa8;
+  color: #f6f6f6;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.btn:hover {
+  opacity: 0.8;
+  transition: all 0.3s ease-in;
+}
+
+/* ===== CUSTOMER IMPRESSION ===== */
+.customer__impression {
+  padding: 20px 30px;
+  background-color: #373535;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.impression__right-title {
+  color: #e85450;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.impression__right-decs,
+.impression__right-decs-1 {
+  color: #f8f8f8;
+  text-align: justify;
+  font-size: 16px;
+  line-height: 1.6;
+}
+.customer__impression img {
+  width: 55%;     
+  height: auto;   
+  display: block;
+  margin: 0 auto; 
+  border-radius: 8px; 
+}
+
+/* list color on dark background */
+.impression__right-list {
+  margin-top: 1rem;
+  padding-left: 1.2rem;
+  color: #f8f8f8;
+}
+.impression__right-list li {
+  color: #f8f8f8;
+  margin-bottom: 0.5rem;
+  list-style-position: inside;
+}
+.impression__right-list li i {
+  margin-right: 10px;
+  color: #e85450;
+}
+
+/* ===== WORK PROCEDURE (Our Process) ===== */
+/* Ensure the Procedure area is visible and not covered by overlays */
+.procedure {
+  padding: 40px 30px;
+  background: #ffffff; /* change to match design if needed */
+  color: #222;
+  position: relative;
+  z-index: 2;
+}
+
+/* corrected selector used in HTML */
+.procedure__title {
+  color: #e85450;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+}
+
+/* layout for items */
+.procedure__list {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* item card */
+.procedure__item {
+  flex: 0 1 260px;
+  text-align: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  color: #222;
+  background: transparent;
+}
+
+/* image style: rectangular with subtle radius */
+.procedure__item-img img {
+  width: 100%;
+  height: auto;
+  max-height: 240px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto 0.8rem;
+}
+
+.procedure__item-heading {
+  font-size: 1.05rem;
+  color: #e85450;
+  margin: 0.5rem 0;
+  font-weight: 700;
+}
+.procedure__item p {
+  color: #444;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ===== JOB PAGE ===== */
+.jobs {
+  padding: 20px 30px;
+}
+
+.jobs h2 {
+  color: #e85450;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.jobs p {
+  font-size: 16px;
+  color: #333;
+  line-height: 28px;
+  margin-bottom: 20px;
+}
+
+.job {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.job h3 {
+  color: #e85450;
+  margin-bottom: 8px;
+}
+
+.job p {
+  margin-bottom: 10px;
+}
+
+.job .btn {
+  background-color: #e85450;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.job .btn:hover {
+  opacity: 0.8;
+  transition: 0.3s;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 30px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.footer a {
+  color: #e85450;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Responsive tweaks ===== */
+@media (max-width: 920px) {
+  .customer__impression {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .nav__search { width: 240px; }
+  .nav { padding: 20px; }
+  .banner img { height: 220px; }
+}
+
+@media (max-width: 720px) {
+  .procedure__list { gap: 1rem; padding: 0 10px; }
+  .procedure__item { flex: 1 1 100%; }
+  .procedure__item-img img { max-width: 100%; }
+  .nav__search { display: none; }
+}
+
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
