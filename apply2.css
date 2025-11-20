@@ -1,0 +1,177 @@
+/* ===== Global Styles ===== */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #2b2b2b; /* Dark gray background */
+  color: #eee;
+}
+
+h1 {
+  text-align: center;
+  color: #ff4444; /* White title */
+  margin-top: 40px;
+}
+
+/* ===== Top Gray Strip (Optional for Consistency) ===== */
+.top-bar {
+  background: #444;
+  height: 40px;
+}
+
+/* ===== Navigation Bar (Logo + Search) ===== */
+.nav {
+  background: #1a1a1a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+}
+
+.nav__logo {
+  height: 50px;
+}
+
+.nav__search input {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+}
+
+.nav__search button {
+  padding: 6px 10px;
+  border: none;
+  cursor: pointer;
+  background: #ff4444;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.nav__search button:hover {
+  background: #cc0000;
+}
+
+/* ===== Header Menu (White Bar with Links) ===== */
+.header {
+  background: #fff;
+  padding: 15px 0;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.3);
+}
+
+.header__list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin: 0;
+  padding: 0;
+}
+
+.header__item a {
+  text-decoration: none;
+  color: #c40000;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.header__item a:hover {
+  color: #ff4444;
+}
+
+/* ===== Page Spacing Beneath Header ===== */
+main, form {
+  margin-top: 40px;
+}
+
+/* ===== Form Container (Light Box Style) ===== */
+form {
+  max-width: 800px;
+  background: #f2f2f2;       /* Light card box */
+  color: #222;               /* Dark text */
+  margin: 50px auto;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.5);
+}
+
+p, fieldset {
+  margin-bottom: 15px;
+}
+
+label {
+  display: inline-block;
+  width: 180px;
+  font-weight: bold;
+  color: #222;
+}
+
+/* ===== Inputs & Text Fields ===== */
+input[type="text"],
+input[type="date"],
+input[type="tel"],
+select,
+textarea {
+  width: 60%;
+  padding: 8px;
+  background: #fff;
+  color: #000;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* ===== Fieldsets and Legends ===== */
+fieldset {
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  padding: 15px;
+}
+
+legend {
+  font-weight: bold;
+  color: #c40000; /* Red accent */
+}
+
+/* ===== Radio & Checkboxes ===== */
+input[type="radio"],
+input[type="checkbox"] {
+  margin-left: 10px;
+}
+
+/* ===== Buttons ===== */
+input[type="submit"],
+input[type="reset"] {
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+  background-color: #cc0000;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 600px) {
+  label {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="tel"],
+  select,
+  textarea {
+    width: 100%;
+  }
+}

@@ -30,7 +30,7 @@ h1, h2, h3, .header__item a, .nav__logo {
 }
 
 .nav__logo {
-  height: 50px;
+  height: 100px;
   width: 100px;
 }
 
@@ -88,7 +88,7 @@ h1, h2, h3, .header__item a, .nav__logo {
 /* ===== BANNER ===== */
 .banner img {
   width: 100%;
-  height: 300px;
+  height: 250px;
   object-fit: cover;
   border-radius: 12px;
 }
@@ -131,7 +131,7 @@ h1, h2, h3, .header__item a, .nav__logo {
 /* ===== CUSTOMER IMPRESSION ===== */
 .customer__impression {
   padding: 20px 30px;
-  background-color: #373535;
+  background-color: #282222;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
@@ -153,8 +153,8 @@ h1, h2, h3, .header__item a, .nav__logo {
   line-height: 1.6;
 }
 .customer__impression img {
-  width: 55%;     
-  height: auto;   
+  width: 65%;     
+  height: 100%;   
   display: block;
   margin: 0 auto; 
   border-radius: 8px; 
@@ -176,17 +176,15 @@ h1, h2, h3, .header__item a, .nav__logo {
   color: #e85450;
 }
 
-/* ===== WORK PROCEDURE (Our Process) ===== */
-/* Ensure the Procedure area is visible and not covered by overlays */
+/* ===== WORK PROCEDURE (Our Process) - balanced layout ===== */
 .procedure {
   padding: 40px 30px;
-  background: #ffffff; /* change to match design if needed */
+  background: #ffffff;
   color: #222;
   position: relative;
   z-index: 2;
 }
 
-/* corrected selector used in HTML */
 .procedure__title {
   color: #e85450;
   font-size: 28px;
@@ -195,48 +193,74 @@ h1, h2, h3, .header__item a, .nav__logo {
   font-weight: 700;
 }
 
-/* layout for items */
 .procedure__list {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+  gap: 32px;
   max-width: 1200px;
   margin: 0 auto;
+  align-items: stretch;
+  flex-wrap: nowrap;
 }
 
-/* item card */
 .procedure__item {
-  flex: 0 1 260px;
+  flex: 1 1 0;
+  max-width: 260px;
   text-align: center;
-  padding: 1rem;
+  padding: 18px 12px;
   box-sizing: border-box;
-  color: #222;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   background: transparent;
 }
 
-/* image style: rectangular with subtle radius */
+.procedure__item-img {
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+  border-radius: 12px;
+  background: #f3f3f3;
+  flex: 0 0 auto;
+}
+
 .procedure__item-img img {
-  width: 100%;
-  height: auto;
-  max-height: 240px;
-  object-fit: cover;
-  border-radius: 8px;
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
   display: block;
-  margin: 0 auto 0.8rem;
 }
 
 .procedure__item-heading {
   font-size: 1.05rem;
   color: #e85450;
-  margin: 0.5rem 0;
+  margin: 8px 0 8px;
   font-weight: 700;
 }
+
 .procedure__item p {
   color: #444;
   font-size: 0.95rem;
   line-height: 1.5;
+  margin: 0;
+  flex: 1 1 auto;
+  max-width: 220px;
 }
+
+@media (max-width: 1000px) {
+  .procedure__list { flex-wrap: wrap; gap: 24px; }
+  .procedure__item { max-width: 300px; }
+}
+@media (max-width: 600px) {
+  .procedure__list { flex-direction: column; align-items: center; }
+  .procedure__item { width: 100%; max-width: 500px; }
+  .procedure__item-img { width: 120px; height: 120px; }
+}
+
 
 /* ===== JOB PAGE ===== */
 .jobs {
