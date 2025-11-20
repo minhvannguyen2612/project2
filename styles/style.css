@@ -356,3 +356,21 @@ h1, h2, h3, .header__item a, .nav__logo {
   clip: rect(1px, 1px, 1px, 1px);
   white-space: nowrap;
 }
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+}
+
+.enhancement-box {
+    background: #f5f5f5;
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-left: 5px solid #4a90e2;
+    border-radius: 6px;
+}
+
+.enhancement-box h2 {
+    margin-top: 0;
+    color: #333;
+}

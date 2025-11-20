@@ -6,7 +6,8 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
 require_once("settings.php"); 
 
-$conn = @mysqli_connect($host, $user, $pass, $dbname);
+$conn = @mysqli_connect($host, $user, $pass, $sql_db);
+
 
 if (!$conn) {
     die("<h2>Database connection failed</h2>");
@@ -18,7 +19,6 @@ function clean($data) {
     return htmlspecialchars($data);
 }
 
-// ===== Receive POST inputs =====
 $job        = clean($_POST["job"] ?? "");
 $givenname  = clean($_POST["givenname"] ?? "");
 $familyname = clean($_POST["familyname"] ?? "");
@@ -37,18 +37,16 @@ $skill1 = $skill2 = $skill3 = $skill4 = $skill5 = 0;
 
 if (!empty($_POST["category"])) {
     foreach ($_POST["category"] as $s) {
-        if ($s == "code") $skill1 = 1;      // HTML
-        if ($s == "hs")   $skill2 = 1;      // PHP
-        if ($s == "3h")   $skill3 = 1;      // JavaScript
-        if ($s == "crm")  $skill4 = 1;      // SQL
-        if ($s == "mth")  $skill5 = 1;      // Muay Thai (fun)
+        if ($s == "code") $skill1 = 1;      
+        if ($s == "hs")   $skill2 = 1;      
+        if ($s == "3h")   $skill3 = 1;     
+        if ($s == "crm")  $skill4 = 1;      
+        if ($s == "mth")  $skill5 = 1;      
     }
 }
 
-// ===== VALIDATION =====
 $errors = [];
 
-// Required fields
 if ($job == "")        $errors[] = "Job reference is required";
 if ($givenname == "" || !preg_match("/^[a-zA-Z]{1,20}$/", $givenname))
     $errors[] = "First name must be alphabetic and ≤ 20 characters";
@@ -69,7 +67,6 @@ if (!preg_match("/^[0-9 ]{8,12}$/", $phone))
 if (!preg_match("/^[0-9]{4}$/", $postcode))
     $errors[] = "Postcode must be exactly 4 digits";
 
-// State ↔ postcode match rule
 $state_ranges = [
     "VIC" => ["3"],
     "NSW" => ["1","2"],
@@ -85,16 +82,12 @@ $pc_first = substr($postcode, 0, 1);
 if (!in_array($pc_first, $state_ranges[$state])) {
     $errors[] = "Postcode does not match the selected state";
 }
-
-// Show errors
 if (count($errors) > 0) {
     echo "<h2>Invalid Submission</h2><ul>";
     foreach ($errors as $e) echo "<li>$e</li>";
     echo "</ul>";
     exit();
 }
-
-// ===== Create EOI TABLE if not existing =====
 $create_sql = "
 CREATE TABLE IF NOT EXISTS eoi (
     EOInumber INT AUTO_INCREMENT PRIMARY KEY,
@@ -121,7 +114,6 @@ CREATE TABLE IF NOT EXISTS eoi (
 
 mysqli_query($conn, $create_sql);
 
-// ===== Insert EOI =====
 $insert_sql = "
 INSERT INTO eoi
 (job_reference, first_name, last_name, dob, gender, street, suburb, state, postcode, email, phone,
@@ -143,7 +135,6 @@ mysqli_stmt_bind_param(
 
 mysqli_stmt_execute($stmt);
 
-// ===== Success Page =====
 $eoi_number = mysqli_insert_id($conn);
 
 echo "<h2>EOI Submitted Successfully!</h2>";

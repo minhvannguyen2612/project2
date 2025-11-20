@@ -1,14 +1,13 @@
 <?php
-require_once("settings.php"); // chứa $host $user $pass $dbname
+require_once("settings.php"); 
 
-// Kết nối
-$conn = @mysqli_connect($host, $user, $pass, $dbname);
+
+$conn = mysqli_connect($host, $user, $pass, $sql_db);
+
 if (!$conn) {
     die("<h2>Database connection failed.</h2>");
 }
 
-
-// DELETE BY JOB REF
 if (isset($_POST["delete_jobref"])) {
     $jr = mysqli_real_escape_string($conn, $_POST["delete_jobref"]);
     $delete_sql = "DELETE FROM eoi WHERE job_reference='$jr'";
@@ -16,7 +15,6 @@ if (isset($_POST["delete_jobref"])) {
     $msg = "Deleted all EOIs with Job Reference: $jr";
 }
 
-// UPDATE STATUS
 if (isset($_POST["update_id"]) && isset($_POST["update_status"])) {
     $id = intval($_POST["update_id"]);
     $status = mysqli_real_escape_string($conn, $_POST["update_status"]);
@@ -25,8 +23,8 @@ if (isset($_POST["update_id"]) && isset($_POST["update_status"])) {
     $msg = "Updated Status for EOI #$id";
 }
 
-$where = "1"; // mặc định lấy tất cả
-$order = "EOInumber ASC"; // sort mặc định
+$where = "1"; 
+$order = "EOInumber ASC";
 
 if (isset($_GET["sort"])) {
     $allowed = ["EOInumber","job_reference","first_name","last_name","status"];
@@ -35,13 +33,11 @@ if (isset($_GET["sort"])) {
     }
 }
 
-// Search by Job Ref
 if (!empty($_GET["search_jobref"])) {
     $jr = mysqli_real_escape_string($conn, $_GET["search_jobref"]);
     $where = "job_reference LIKE '%$jr%'";
 }
 
-// Search by Name
 if (!empty($_GET["search_first"]) || !empty($_GET["search_last"])) {
     $fn = mysqli_real_escape_string($conn, $_GET["search_first"]);
     $ln = mysqli_real_escape_string($conn, $_GET["search_last"]);
@@ -53,7 +49,6 @@ if (!empty($_GET["search_first"]) || !empty($_GET["search_last"])) {
     $where = implode(" AND ", $conditions);
 }
 
-// LẤY DỮ LIỆU
 $sql = "SELECT * FROM eoi WHERE $where ORDER BY $order";
 $query = mysqli_query($conn, $sql);
 
@@ -74,7 +69,6 @@ $query = mysqli_query($conn, $sql);
 
 <?php if (!empty($msg)) echo "<p><strong>$msg</strong></p>"; ?>
 
-<!-- ===== FORM: SEARCH BY JOB REF ===== -->
 <section>
     <h2>Search by Job Reference</h2>
     <form method="get">
@@ -83,7 +77,6 @@ $query = mysqli_query($conn, $sql);
     </form>
 </section>
 
-<!-- ===== FORM: SEARCH BY NAME ===== -->
 <section>
     <h2>Search by Applicant Name</h2>
     <form method="get">
@@ -93,7 +86,6 @@ $query = mysqli_query($conn, $sql);
     </form>
 </section>
 
-<!-- ===== FORM: DELETE ===== -->
 <section>
     <h2>Delete EOIs for a Job</h2>
     <form method="post">
@@ -102,7 +94,6 @@ $query = mysqli_query($conn, $sql);
     </form>
 </section>
 
-<!-- ===== EOI TABLE ===== -->
 <section>
 <h2>EOI Records</h2>
 
