@@ -7,8 +7,6 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 require_once("settings.php"); 
 
 $conn = @mysqli_connect($host, $user, $pass, $sql_db);
-
-
 if (!$conn) {
     die("<h2>Database connection failed</h2>");
 }
@@ -19,6 +17,7 @@ function clean($data) {
     return htmlspecialchars($data);
 }
 
+// ===== Receive POST inputs =====
 $job        = clean($_POST["job"] ?? "");
 $givenname  = clean($_POST["givenname"] ?? "");
 $familyname = clean($_POST["familyname"] ?? "");
@@ -32,7 +31,7 @@ $email      = clean($_POST["email"] ?? "");
 $phone      = clean($_POST["phone"] ?? "");
 $other      = clean($_POST["other"] ?? "");
 
-// ===== Skills logic =====
+// ===== Skills =====
 $skill1 = $skill2 = $skill3 = $skill4 = $skill5 = 0;
 
 if (!empty($_POST["category"])) {
@@ -45,6 +44,7 @@ if (!empty($_POST["category"])) {
     }
 }
 
+// ===== Validation =====
 $errors = [];
 
 if ($job == "")        $errors[] = "Job reference is required";
@@ -55,9 +55,7 @@ if ($familyname == "" || !preg_match("/^[a-zA-Z]{1,20}$/", $familyname))
     $errors[] = "Last name must be alphabetic and ≤ 20 characters";
 
 if ($dob == "")        $errors[] = "Date of birth required";
-
 if ($gender == "")     $errors[] = "Gender required";
-
 if (!filter_var($email, FILTER_VALIDATE_EMAIL))
     $errors[] = "Invalid email format";
 
@@ -67,10 +65,11 @@ if (!preg_match("/^[0-9 ]{8,12}$/", $phone))
 if (!preg_match("/^[0-9]{4}$/", $postcode))
     $errors[] = "Postcode must be exactly 4 digits";
 
+// Validate Australian state → postcode rule
 $state_ranges = [
-    "VIC" => ["3"],
-    "NSW" => ["1","2"],
-    "QLD" => ["4","9"],
+    "VIC" => ["3", "8"],
+    "NSW" => ["1", "2"],
+    "QLD" => ["4", "9"],
     "NT"  => ["0"],
     "WA"  => ["6"],
     "SA"  => ["5"],
@@ -82,12 +81,15 @@ $pc_first = substr($postcode, 0, 1);
 if (!in_array($pc_first, $state_ranges[$state])) {
     $errors[] = "Postcode does not match the selected state";
 }
+
 if (count($errors) > 0) {
     echo "<h2>Invalid Submission</h2><ul>";
     foreach ($errors as $e) echo "<li>$e</li>";
     echo "</ul>";
     exit();
 }
+
+// ===== Create table if missing =====
 $create_sql = "
 CREATE TABLE IF NOT EXISTS eoi (
     EOInumber INT AUTO_INCREMENT PRIMARY KEY,
@@ -111,9 +113,9 @@ CREATE TABLE IF NOT EXISTS eoi (
     status VARCHAR(10)
 );
 ";
-
 mysqli_query($conn, $create_sql);
 
+// ===== INSERT SQL (17 bind parameters + status 'New') =====
 $insert_sql = "
 INSERT INTO eoi
 (job_reference, first_name, last_name, dob, gender, street, suburb, state, postcode, email, phone,
@@ -126,7 +128,7 @@ $stmt = mysqli_prepare($conn, $insert_sql);
 
 mysqli_stmt_bind_param(
     $stmt,
-    "ssssssssssssiiiiiis",
+    "sssssssssssiiiiis",   // 11 strings + 5 ints + 1 string = 17
     $job, $givenname, $familyname, $dob, $gender,
     $street, $suburb, $state, $postcode, $email, $phone,
     $skill1, $skill2, $skill3, $skill4, $skill5,
