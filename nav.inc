@@ -14,5 +14,6 @@
         <li class="header__item"><a href="jobs.php">Job Information</a></li>
         <li class="header__item"><a href="apply.php">Apply Now</a></li>
         <li class="header__item"><a href="about.php">About Us</a></li>
+      <li class="header__item"><a href="manage.php">Manage </a></li>
     </ul>
 </header>
