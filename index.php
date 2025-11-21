@@ -5,12 +5,12 @@ if (session_status() === PHP_SESSION_NONE) {
 include __DIR__ . '/header.inc';
 include __DIR__ . '/nav.inc';
 ?>
-  <!-- Banner -->
+
   <section class="banner" aria-label="Banner">
     <img src="styles/images/banner.jpg" alt="Technology banner" loading="lazy">
   </section>
 
-  <!-- Main Section -->
+
   <main class="container" role="main" aria-labelledby="main-heading">
     <h1 id="main-heading" class="visually-hidden">FutureTech Solutions — Home</h1>
 
@@ -32,7 +32,7 @@ include __DIR__ . '/nav.inc';
     </section>
   </main>
 
-  <!-- Customer Impression -->
+ 
   <section class="customer__impression" aria-label="Customer impression">
     <figure>
       <img src="styles/images/logo2.jpg" alt="Client meeting" loading="lazy" />
@@ -59,7 +59,7 @@ include __DIR__ . '/nav.inc';
     </article>
   </section>
 
-  <!-- Work Procedure -->
+  
   <section class="procedure" aria-label="Our process">
     <h2 class="procedure__title">Our Process</h2>
       <div class="procedure__list">

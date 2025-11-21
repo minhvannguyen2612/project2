@@ -1,4 +1,5 @@
 <?php
+
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: apply.php");
     exit();
@@ -17,7 +18,7 @@ function clean($data) {
     return htmlspecialchars($data);
 }
 
-// ===== Receive POST inputs =====
+
 $job        = clean($_POST["job"] ?? "");
 $givenname  = clean($_POST["givenname"] ?? "");
 $familyname = clean($_POST["familyname"] ?? "");
@@ -31,7 +32,7 @@ $email      = clean($_POST["email"] ?? "");
 $phone      = clean($_POST["phone"] ?? "");
 $other      = clean($_POST["other"] ?? "");
 
-// ===== Skills =====
+
 $skill1 = $skill2 = $skill3 = $skill4 = $skill5 = 0;
 
 if (!empty($_POST["category"])) {
@@ -44,7 +45,6 @@ if (!empty($_POST["category"])) {
     }
 }
 
-// ===== Validation =====
 $errors = [];
 
 if ($job == "")        $errors[] = "Job reference is required";
@@ -65,7 +65,7 @@ if (!preg_match("/^[0-9 ]{8,12}$/", $phone))
 if (!preg_match("/^[0-9]{4}$/", $postcode))
     $errors[] = "Postcode must be exactly 4 digits";
 
-// Validate Australian state → postcode rule
+
 $state_ranges = [
     "VIC" => ["3", "8"],
     "NSW" => ["1", "2"],
@@ -78,18 +78,43 @@ $state_ranges = [
 ];
 
 $pc_first = substr($postcode, 0, 1);
-if (!in_array($pc_first, $state_ranges[$state])) {
-    $errors[] = "Postcode does not match the selected state";
+if (!empty($state) && isset($state_ranges[$state])) {
+    if (!in_array($pc_first, $state_ranges[$state])) {
+        $errors[] = "Postcode does not match the selected state";
+    }
 }
 
+
 if (count($errors) > 0) {
-    echo "<h2>Invalid Submission</h2><ul>";
-    foreach ($errors as $e) echo "<li>$e</li>";
+    include 'header.inc';
+    include 'nav.inc';
+
+    echo '<main class="main" style="padding:40px;">';
+    echo "<h2>Invalid Submission</h2>";
+    echo "<ul>";
+    foreach ($errors as $e) {
+        echo "<li>$e</li>";
+    }
     echo "</ul>";
+
+    echo '<a href="apply.php" style="
+        display:inline-block;
+        padding:10px 20px;
+        background:#6c757d;
+        color:white;
+        text-decoration:none;
+        border-radius:6px;
+        margin-top:15px;
+        font-weight:600;
+    ">Back to Apply Page</a>';
+
+    echo '</main>';
+
+    include 'footer.inc';
     exit();
 }
 
-// ===== Create table if missing =====
+
 $create_sql = "
 CREATE TABLE IF NOT EXISTS eoi (
     EOInumber INT AUTO_INCREMENT PRIMARY KEY,
@@ -115,7 +140,7 @@ CREATE TABLE IF NOT EXISTS eoi (
 ";
 mysqli_query($conn, $create_sql);
 
-// ===== INSERT SQL (17 bind parameters + status 'New') =====
+
 $insert_sql = "
 INSERT INTO eoi
 (job_reference, first_name, last_name, dob, gender, street, suburb, state, postcode, email, phone,
@@ -128,7 +153,7 @@ $stmt = mysqli_prepare($conn, $insert_sql);
 
 mysqli_stmt_bind_param(
     $stmt,
-    "sssssssssssiiiiis",   // 11 strings + 5 ints + 1 string = 17
+    "sssssssssssiiiiis",
     $job, $givenname, $familyname, $dob, $gender,
     $street, $suburb, $state, $postcode, $email, $phone,
     $skill1, $skill2, $skill3, $skill4, $skill5,
@@ -139,8 +164,41 @@ mysqli_stmt_execute($stmt);
 
 $eoi_number = mysqli_insert_id($conn);
 
+include 'header.inc';
+include 'nav.inc';
+
+echo '<main class="main" style="padding:40px;">';
 echo "<h2>EOI Submitted Successfully!</h2>";
 echo "<p>Your EOI number is: <strong>$eoi_number</strong></p>";
+
+echo '<a href="manage.php" 
+style="
+    display:inline-block;
+    padding:12px 25px;
+    background:#007bff;
+    color:white;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:bold;
+    margin-top:20px;
+    margin-right:10px;
+">Go to Manage Page</a>';
+
+echo '<a href="index.php" 
+style="
+    display:inline-block;
+    padding:12px 25px;
+    background:#6c757d;
+    color:white;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:500;
+    margin-top:20px;
+">Back to Home</a>';
+
+echo '</main>';
+
+include 'footer.inc';
 
 mysqli_stmt_close($stmt);
 mysqli_close($conn);
