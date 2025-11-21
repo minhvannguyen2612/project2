@@ -1,7 +1,5 @@
 <?php
 require_once("settings.php"); 
-
-
 $conn = mysqli_connect($host, $user, $pass, $sql_db);
 
 if (!$conn) {

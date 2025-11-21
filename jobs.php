@@ -2,7 +2,7 @@
 include 'header.inc';
 include 'nav.inc';
 require_once 'settings.php';
-$conn = mysqli_connect($host, $user, $pwd, $sql_db);
+$conn = mysqli_connect($host, $user, $pass, $sql_db);
 if (!$conn) {
     echo "<main><h1>Available Job Listings</h1>";
     echo "<p style='color:red;'>Database connection failed: " . htmlspecialchars(mysqli_connect_error()) . "</p></main>";
@@ -44,7 +44,7 @@ $result = mysqli_query($conn, $query);
       echo "<p>No jobs found.</p>";
   }
 
-  // dọn dẹp
+
   mysqli_free_result($result);
   mysqli_close($conn);
   ?>
